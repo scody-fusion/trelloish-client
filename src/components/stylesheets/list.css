@@ -1,0 +1,13 @@
+.list {
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: #DFE1E7;
+    margin: 5px;
+}
+
+.list-title {
+    text-align: left;
+    margin: 0;
+    padding: 5px 0 5px 5px;
+    cursor: pointer;
+}
