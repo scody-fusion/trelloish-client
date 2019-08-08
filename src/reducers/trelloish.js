@@ -10,34 +10,37 @@ const initialState = {
             createdDate: 'today',
             createdBy: 'Sean',
             lastModified: 'today',
-            description: 'description',
-            lists: [
+            description: 'description'
+        }
+    ],
+    lists: [
+        {
+            _id: '1',
+            listTitle: 'List One',
+            titleEditing: false,
+            board: '1'
+        }
+    ],
+    cards: [
+        {
+            _id: '1',
+            cardTitle: 'card one',
+            cardTitleEditing: false,
+            description: 'card description',
+            cardDescriptionEditing: false,
+            list: '1',
+            comments: [
                 {
                     _id: '1',
-                    listTitle: 'List One',
-                    titleEditing: false,
-                    cards: [
-                        {
-                            _id: '1',
-                            cardTitle: 'card one',
-                            cardTitleEditing: false,
-                            description: 'card description',
-                            cardDescriptionEditing: false,
-                            comments: [
-                                {
-                                    _id: '1',
-                                    commentText: 'comment text',
-                                    commentEditing: false
-                                    // created date
-                                    // created by
-                                }
-                            ]
-                        }
-                    ]
+                    commentText: 'comment text',
+                    commentEditing: false
+                    // created date
+                    // created by
                 }
-        ]
-    }]
-};
+            ]
+        }
+                    ]
+                    };
 
 // search through board for a list
 const findList = (lists, list_id, callback) => {
@@ -77,7 +80,6 @@ const findCard = (cards, card_id, callback) => {
 }
 
 // reducer handles actions from /actions/index.js
-//TODO: refactor all newState lines to be in separate function
 export const trelloishReducer = (state = initialState, action) => {
 
     console.log(action);
@@ -101,18 +103,12 @@ export const trelloishReducer = (state = initialState, action) => {
 
         case actionTypes.SET_EDITING_LIST_TITLE:
         
-            //TODO: refactor using promises to avoid callback hell
             //map through state to find and update correct list
 
-            updatedBoards = findBoard(state.boards, action.board_id, (board) => {
                 updatedLists = findList(board.lists, action.list_id, (list) => {
                     // toggle titleEditing
                     return {...list, titleEditing: !list.titleEditing}
-                })
-                return {...board, lists: updatedLists}
-
-            })
-            
+                })            
 
             // insert modified board into newState
             newState = {
