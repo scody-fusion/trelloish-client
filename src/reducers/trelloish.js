@@ -1,5 +1,5 @@
 //import actions
-import {UPDATE_BOARDS, SET_EDITING_LIST_TITLE, SAVE_EDITED_LIST_TITLE, CREATE_NEW_LIST, CREATE_NEW_CARD, SET_CARD_TITLE_EDITING, SAVE_EDITED_CARD_TITLE, SET_CARD_DESCRIPTION_EDITING, SAVE_EDITED_CARD_DESCRIPTION} from '../actions';
+import * as actionTypes from '../actions';
 
 //set initial state
 const initialState = {
@@ -90,7 +90,7 @@ export const trelloishReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case UPDATE_BOARDS:
+        case actionTypes.UPDATE_BOARDS:
 
             newState = {
                 ...state,
@@ -99,7 +99,7 @@ export const trelloishReducer = (state = initialState, action) => {
 
             return newState;
 
-        case SET_EDITING_LIST_TITLE:
+        case actionTypes.SET_EDITING_LIST_TITLE:
         
             //TODO: refactor using promises to avoid callback hell
             //map through state to find and update correct list
@@ -123,7 +123,7 @@ export const trelloishReducer = (state = initialState, action) => {
             console.log(newState);
             return newState;
 
-        case SAVE_EDITED_LIST_TITLE:
+        case actionTypes.SAVE_EDITED_LIST_TITLE:
 
             //map through state to find and update correct list
             updatedBoards = findBoard(state.boards, action.board_id, (board) => {
@@ -143,7 +143,7 @@ export const trelloishReducer = (state = initialState, action) => {
             console.log(newState);
             return newState;
 
-        case CREATE_NEW_LIST:
+        case actionTypes.CREATE_NEW_LIST:
 
             console.log('CREATE_NEW_LIST');
             updatedBoards = findBoard(state.boards, action.board_id, (board) => {
@@ -170,7 +170,7 @@ export const trelloishReducer = (state = initialState, action) => {
             console.log(newState);
             return newState;
 
-        case CREATE_NEW_CARD:
+        case actionTypes.CREATE_NEW_CARD:
             updatedBoards = findBoard(state.boards, action.board_id, (board) => {
                 updatedLists = findList(board.lists, action.list_id, (list) => {
                     // add a card
@@ -194,7 +194,7 @@ export const trelloishReducer = (state = initialState, action) => {
             console.log(newState);
             return newState;
 
-        case SET_CARD_TITLE_EDITING:
+        case actionTypes.SET_CARD_TITLE_EDITING:
         updatedBoards = findBoard(state.boards, action.board_id, (board) => {
             updatedLists = findList(board.lists, action.list_id, (list) => {
                 updatedCards = findCard(list.cards, action.card_id, (card) => {
@@ -215,7 +215,7 @@ export const trelloishReducer = (state = initialState, action) => {
         console.log(newState);
         return newState;
 
-        case SAVE_EDITED_CARD_TITLE:
+        case actionTypes.SAVE_EDITED_CARD_TITLE:
         updatedBoards = findBoard(state.boards, action.board_id, (board) => {
             updatedLists = findList(board.lists, action.list_id, (list) => {
                 updatedCards = findCard(list.cards, action.card_id, (card) => {
@@ -236,7 +236,7 @@ export const trelloishReducer = (state = initialState, action) => {
         console.log(newState);
         return newState;
 
-        case SET_CARD_DESCRIPTION_EDITING:
+        case actionTypes.SET_CARD_DESCRIPTION_EDITING:
         updatedBoards = findBoard(state.boards, action.board_id, (board) => {
             updatedLists = findList(board.lists, action.list_id, (list) => {
                 updatedCards = findCard(list.cards, action.card_id, (card) => {
@@ -257,7 +257,7 @@ export const trelloishReducer = (state = initialState, action) => {
         console.log(newState);
         return newState;
 
-        case SAVE_EDITED_CARD_DESCRIPTION:
+        case actionTypes.SAVE_EDITED_CARD_DESCRIPTION:
         updatedBoards = findBoard(state.boards, action.board_id, (board) => {
             updatedLists = findList(board.lists, action.list_id, (list) => {
                 updatedCards = findCard(list.cards, action.card_id, (card) => {

@@ -1,8 +1,12 @@
 import React from 'react'
-import Card from 'components/card'
-import AddCard from 'components/addCard'
 import { connect } from 'react-redux'
 
+import AddCard from 'components/addCard'
+import ListTitle from 'components/listTitle'
+import CardList from 'components/cardList'
+
+//TODO: use *
+// check Dustin screenshots
 import { setEditing, saveEditTitle } from 'actions'
 
 import 'components/stylesheets/list.css'
@@ -35,44 +39,11 @@ export class List extends React.Component {
     render() {
 
         console.log('list props', this.props);
-
-        //if titleEditing, return a textInput
-        let title;
-        if (this.props.titleEditing) {
-            let input;
-            title = 
-                <h1>
-                    <form onSubmit={e => {
-                        e.preventDefault()
-                        if (!input.value.trim()) {
-                        return
-                        }
-
-                        this.saveEditTitle(input.value)
-                        input.value = '' 
-                        }}>
-                    <input type="text" defaultValue={this.props.listTitle} ref={node => input = node} />
-                        <button type="submit">Done</button>
-                        <button type="button" onClick={(e) => this.editTitle()}>
-                            Cancel
-                        </button>
-                    </form>
-                </h1>
-            
-        } else {
-            title = <h1 className="list-title" onClick={() => this.editTitle()}>{this.props.listTitle}</h1>
-        }
         
-        let cards = this.props.cards.map((card, index) => {
-            return (
-                <Card {...card} key={index} listProps={this.props} />
-                )
-            })
-            
             return (
                 <div className="list">
-                {title}
-                {cards}
+                <ListTitle board={this.props.board} list={this.props} />
+                <CardList board = {this.props.board} list={this.props} />
                 <AddCard listProps={this.props}/>
             </div>
         )
@@ -80,10 +51,9 @@ export class List extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return({
-    })
-}
+    return{}
+};
 
-export default connect(mapStateToProps)(List)
+export default connect(mapStateToProps)(List);
 
 
