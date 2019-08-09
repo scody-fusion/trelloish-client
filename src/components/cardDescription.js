@@ -1,58 +1,66 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import "components/stylesheets/list.css";
-
 import * as actions from "../actions";
 
 export class CardDescription extends React.Component {
-  editDescription() {
-    this.props.setCardDescriptionEditing(
-      this.props.listProps.board._id,
-      this.props.listProps._id,
-      this.props._id
-    );
+  handleSubmit(e) {
+    e.preventDefault();
+
+    if (!this.cardDescription.value.trim()) {
+      return;
+    }
+
+    this.saveEditedCardDescription(this.cardDescription.value);
+    this.cardDescription.value = "";
   }
 
-  saveEditedCardDescription(newDescription) {
+  setCardDescriptionEditing() {
+    this.props.setCardDescriptionEditing(this.props.card._id);
+  }
+
+  saveEditedCardDescription(editedDescription) {
     this.props.saveEditedCardDescription(
-      this.props.listProps.board._id,
-      this.props.listProps._id,
-      this.props._id,
-      newDescription
+      this.props.card._id,
+      editedDescription
     );
     // reset descriptionEditing to false
-    this.editDescription();
+    this.setCardDescriptionEditing();
   }
 
   render() {
     let description = (
-      <p className="card-title" onClick={() => this.editDescription()}>
-        {this.props.card.CardDescription}
+      <p
+        className="card-description"
+        onClick={() => this.setCardDescriptionEditing()}
+      >
+        {this.props.card.cardDescription}
       </p>
     );
 
-    //if titleEditing, return a textInput
-    if (this.props.card.titleEditing) {
-      let input;
-      title = (
-        <h1>
-          <form onSubmit={e => this.handleSubmit(e, input)}>
-            <input
-              type="text"
-              defaultValue={this.props.card.cardTitle}
-              ref={node => (input = node)}
-            />
-            <button type="submit">Done</button>
-            <button type="button" onClick={e => this.editTitle()}>
-              Cancel
-            </button>
-          </form>
-        </h1>
+    //if descriptionEditing, return a textInput
+    if (this.props.card.cardDescriptionEditing) {
+      description = (
+        <form onSubmit={e => this.handleSubmit(e)}>
+          <input
+            type="text"
+            defaultValue={this.props.card.cardDescription}
+            ref={cardDescription => (this.cardDescription = cardDescription)}
+          />
+          <button type="submit">Done</button>
+          <button type="button" onClick={e => this.setCardDescriptionEditing()}>
+            Cancel
+          </button>
+        </form>
       );
-
-      return { title };
     }
+
+    return (
+      <div className="card-description">
+        <h3>Description:</h3>
+        {description}
+      </div>
+    );
   }
 }
 
@@ -62,17 +70,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setCardDescriptionEditing: (board_id, list_id, card_id) =>
-      dispatch(actions.setCardDescriptionEditing(board_id, list_id, card_id)),
-    saveEditedCardDescription: (board_id, list_id, card_id, newDescription) =>
-      dispatch(
-        actions.saveEditedCardDescription(
-          board_id,
-          list_id,
-          card_id,
-          newDescription
-        )
-      )
+    setCardDescriptionEditing: card_id =>
+      dispatch(actions.setCardDescriptionEditing(card_id)),
+    saveEditedCardDescription: (card_id, editedDescription) =>
+      dispatch(actions.saveEditedCardDescription(card_id, editedDescription))
   };
 };
 

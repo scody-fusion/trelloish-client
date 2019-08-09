@@ -38,7 +38,7 @@ export class BoardList extends React.Component {
 
 const mapStateToProps = state => {
     return({
-        boards: state.trelloish.boards
+        board: state.board.board
     })
 }
 

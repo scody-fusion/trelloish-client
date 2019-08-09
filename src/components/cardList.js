@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 
 import "components/stylesheets/list.css";
 
-import * as actions from "../actions";
-
 import Card from "components/card";
 
 export class CardList extends React.Component {
@@ -13,9 +11,7 @@ export class CardList extends React.Component {
       return <Card {...card} key={index} listProps={this.props} />;
     });
 
-    return (
-        {cardList}
-    )
+    return <div className="card-list">{cardList}</div>;
   }
 }
 
@@ -27,4 +23,7 @@ const mapDispatchToProps = dispatch => {
   return {};
 };
 
-export default connect(mapStateToProps)(CardList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CardList);

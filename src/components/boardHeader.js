@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 // import 'components/stylesheets/boardHeader.css'
 
 // it includes the board title
@@ -14,7 +14,7 @@ export default function BoardHeader(props) {
             <div className="board-header">
                 <h1 className="board-title">{props.boardTitle}</h1>
             </div>
-        )
-}
+        );
+};
 
 

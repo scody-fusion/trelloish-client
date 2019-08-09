@@ -1,4 +1,4 @@
-import {API_BASE_URL} from '../config'
+import {API_BASE_URL} from '../config';
 
 // fetch boards
 export const UPDATE_BOARDS = 'UPDATE_BOARDS';
@@ -6,8 +6,8 @@ export const updateBoards = (boards) => {
     return {
         type: UPDATE_BOARDS,
         boards: boards
-    }
-}
+    };
+};
 
 export const fetchBoards = () => (dispatch, getState) => {
     console.log('hello from fetchboards action');
@@ -21,28 +21,26 @@ export const fetchBoards = () => (dispatch, getState) => {
             // console.log('action boards',boards);
             dispatch(updateBoards(boards))
         })
-}
+};
 
 // edit list title
-export const SET_EDITING_LIST_TITLE = 'SET_EDITING_LIST_TITLE';
-export const setEditing = (board_id, list_id) => {
+export const SET_LIST_TITLE_EDITING = 'SET_LIST_TITLE_EDITING';
+export const setListTitleEditing = (list_id) => {
     return {
-        type: SET_EDITING_LIST_TITLE,
-        board_id: board_id,
+        type: SET_LIST_TITLE_EDITING,
         list_id: list_id
-    }
-}
+    };
+};
 
 // save list title
-export const SAVE_EDITED_LIST_TITLE = 'SAVE_EDITED_LIST_TITLE';
-export const saveEditTitle = (board_id, list_id, newTitle) => {
+export const SAVE_LIST_TITLE_EDITED = 'SAVE_LIST_TITLE_EDITED';
+export const saveListTitleEdited = (list_id, editedTitle) => {
     return {
-        type: SAVE_EDITED_LIST_TITLE,
-        board_id: board_id,
+        type: SAVE_LIST_TITLE_EDITED,
         list_id: list_id,
-        newTitle: newTitle
-    }
-}
+        editedTitle: editedTitle
+    };
+};
 
 // create a new list
 export const CREATE_NEW_LIST = 'CREATE_NEW_LIST';
@@ -51,63 +49,73 @@ export const createNewList = (board_id, listTitle) => {
         type: CREATE_NEW_LIST,
         board_id: board_id,
         listTitle: listTitle
-    }
-}
+    };
+};
 
 // create a new card
 export const CREATE_NEW_CARD = 'CREATE_NEW_CARD';
-export const createNewCard = (board_id, list_id, cardTitle) => {
+export const createNewCard = (list_id, cardTitle) => {
     return {
         type: CREATE_NEW_CARD,
-        board_id: board_id,
         list_id: list_id,
         cardTitle: cardTitle
-    }
-}
+    };
+};
 
 
 // edit a card title
 export const SET_CARD_TITLE_EDITING = 'SET_CARD_TITLE_EDITING';
-export const setCardTitleEditing = (board_id, list_id, card_id) => {
+export const setEditingCardTitle = (card_id) => {
     return {
         type: SET_CARD_TITLE_EDITING,
-        board_id: board_id,
-        list_id: list_id,
         card_id: card_id
-    }
-}
+    };
+};
 
 // save card title
 export const SAVE_EDITED_CARD_TITLE = 'SAVE_EDITED_CARD_TITLE';
-export const saveEditedCardTitle = (board_id, list_id, card_id, newTitle) => {
+export const saveEditedCardTitle = (card_id, editedTitle) => {
     return {
         type: SAVE_EDITED_CARD_TITLE,
-        board_id: board_id,
-        list_id: list_id,
         card_id: card_id,
-        newTitle: newTitle
-    }
-}
+        editedTitle: editedTitle
+    };
+};
 
 // edit a card description
 export const SET_CARD_DESCRIPTION_EDITING = 'SET_CARD_DESCRIPTION_EDITING';
-export const setCardDescriptionEditing = (board_id, list_id, card_id) => {
+export const setCardDescriptionEditing = (card_id) => {
     return {
         type: SET_CARD_DESCRIPTION_EDITING,
-        board_id: board_id,
-        list_id: list_id,
         card_id: card_id
-    }
-}
+    };
+};
 
 // save card description
 export const SAVE_EDITED_CARD_DESCRIPTION = 'SAVE_EDITED_CARD_DESCRIPTION';
-export const saveEditedCardDescription = (board_id, list_id, card_id, newDescription) => {
+export const saveEditedCardDescription = (card_id, editedDescription) => {
     return {
         type: SAVE_EDITED_CARD_DESCRIPTION,
-        board_id: board_id,
-        list_id: list_id,
         card_id: card_id,
-        newDescription: newDescription
-    }
-}
+        editedDescription: editedDescription
+    };
+};
+
+// edit a card comment
+export const SET_CARD_COMMENT_EDITING = 'SET_CARD_COMMENT_EDITING';
+export const setCardCommentEditing = (card_id) => {
+    return {
+        type: SET_CARD_COMMENT_EDITING,
+        card_id: card_id
+    };
+};
+
+// save card comment
+export const SAVE_EDITED_CARD_COMMENT = 'SAVE_EDITED_CARD_COMMENT';
+export const saveEditedCardComment = (card_id, updatedComment) => {
+    return {
+        type: SAVE_EDITED_CARD_COMMENT,
+        card_id: card_id,
+        updatedComment: updatedComment
+    };
+};

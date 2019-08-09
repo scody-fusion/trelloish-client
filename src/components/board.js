@@ -1,39 +1,36 @@
-import React from 'react'
+import React from 'react';
 import {connect} from 'react-redux';
 
-import List from '../components/list'
-import BoardHeader from '../components/boardHeader'
-import AddList from '../components/addList'
+import BoardHeader from '../components/boardHeader';
+import AddList from '../components/addList';
+import ListWrapper from 'components/listWrapper';
 
-import 'components/stylesheets/board.css'
+import 'components/stylesheets/board.css';
 
-// actions
+export class Board extends React.Component {
+  render() {
 
-// components
+    //query for lists that match board
+    let lists = this.props.lists.filter((list, index) => {
+        return list.board === this.props.board._id
+    });
 
-//the board has a header
-
-export function Board(props) {
-
-    //TODO: complete this mapping
-    const lists = props.boards[0].lists.map((list, index) => (
-        <List {...list} key={index} board={props.boards[0]}/>
-    ))
-
-        return (
-            <div className="board">
-                <BoardHeader boardTitle={props.boards[0].title} />
-                {lists}
-                <AddList board={props.boards[0]} />
-            </div>
-        )
-    }
+    return (
+      <div className="board">
+        <BoardHeader boardTitle={this.props.board.title} />
+        <ListWrapper lists={lists} />
+        <AddList board={this.props.board} />
+      </div>
+    );
+  };
+};
 
 const mapStateToProps = state => {
     return({
-        boards: state.trelloish.boards
-    })
-}
+        board: state.board.board,
+        lists: state.lists.lists
+    });
+};
 
-export default connect(mapStateToProps)(Board)
+export default connect(mapStateToProps)(Board);
 

@@ -1,59 +1,43 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from "react";
+import { connect } from "react-redux";
 
-import AddCard from 'components/addCard'
-import ListTitle from 'components/listTitle'
-import CardList from 'components/cardList'
+import AddCard from "components/addCard";
+import ListTitle from "components/listTitle";
+import CardList from "components/cardList";
 
-//TODO: use *
-// check Dustin screenshots
-import { setEditing, saveEditTitle } from 'actions'
-
-import 'components/stylesheets/list.css'
+import "components/stylesheets/list.css";
 
 export class List extends React.Component {
+  //when I click on the list title, i can edit it
+  // it has a field to add another card
+  // it lists all of the active cards
 
-    //when I click on the list title, i can edit it
-    // it has a field to add another card
-    // it lists all of the active cards
+  // FUTURE
+  // it has a menu
+  // review menu options on Trello
 
-    // FUTURE
-    // it has a menu
-        // review menu options on Trello
+  render() {
+    //query for cards that match board
+    let cards = this.props.cards.filter((card, index) => {
+      return card.list === this.props._id;
+    });
 
-    //when I click on the list title, i can edit it
-    editTitle() {
+    console.log("cards", cards);
 
-        this.props.dispatch(setEditing(this.props.board._id, this.props._id))
-    }    
-
-    saveEditTitle(newTitle){
-        console.log(newTitle)
-
-        this.props.dispatch(saveEditTitle(this.props.board._id, this.props._id, newTitle))
-
-        // reset titleEditing to false
-        this.editTitle()
-    }
-
-    render() {
-
-        console.log('list props', this.props);
-        
-            return (
-                <div className="list">
-                <ListTitle board={this.props.board} list={this.props} />
-                <CardList board = {this.props.board} list={this.props} />
-                <AddCard listProps={this.props}/>
-            </div>
-        )
-    }
+    return (
+      <div className="list">
+        <ListTitle list={this.props} />
+        <CardList cards={cards} />
+        <AddCard list={this.props} />
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => {
-    return{}
+  return {
+    cards: state.cards.cards
+  };
 };
 
 export default connect(mapStateToProps)(List);
-
-

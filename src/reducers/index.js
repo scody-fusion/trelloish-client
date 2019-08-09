@@ -1,7 +1,11 @@
 import {combineReducers} from 'redux';
 
-import { trelloishReducer } from 'reducers/trelloish';
+import { boardReducer } from 'reducers/board';
+import { listsReducer } from 'reducers/lists';
+import { cardsReducer } from 'reducers/cards';
 
 export default combineReducers({
-    trelloish: trelloishReducer
+    lists: listsReducer,
+    cards: cardsReducer,
+    board: boardReducer
 })

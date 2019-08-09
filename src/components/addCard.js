@@ -1,93 +1,98 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from "react";
+import { connect } from "react-redux";
 
-import 'components/stylesheets/card.css'
+import "components/stylesheets/card.css";
 
-import { createNewCard } from '../actions'
+import * as actions from '../actions';
 
 export class addCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editing: false
+    };
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            editing: false
-        }
+    //TODO: what does this line do?
+    // this.onSubmit = this.onSubmit.bind(this);
+  };
 
-        //TODO: what does this line do?
-        // this.onSubmit = this.onSubmit.bind(this);
+  handleClick(e) {
+    e.preventDefault();
+    this.setState({
+      editing: true
+    });
+  };
+
+  handleSubmit(e) {
+    e.preventDefault();
+    if (!this.cardTitle.value.trim()) {
+      return;
+    };
+    this.handleSave(this.cardTitle.value);
+    this.cardTitle.value = "";
+  };
+
+  handleSave(cardTitle) {
+    this.props.createNewCard(this.props.list._id, cardTitle);
+    this.setState({
+      editing: false
+    });
+  };
+
+  cancelCreate() {
+    this.setState({
+      editing: false
+    });
+  };
+
+  render() {
+    let addForm = (
+      <form
+        onSubmit={e => {
+          this.handleClick(e);
+        }}
+      >
+        <button type="submit">Add Card</button>
+      </form>
+    );
+    if (this.state.editing) {
+      addForm = (
+        <h1>
+          <form
+            onSubmit={e => {
+              this.handleSubmit(e);
+            }}
+          >
+            <input
+              type="text"
+              defaultValue="new card"
+              ref={cardTitle => (this.cardTitle = cardTitle)}
+            />
+            <button type="submit">Done</button>
+            <button type="button" onClick={e => this.cancelCreate()}>
+              Cancel
+            </button>
+          </form>
+        </h1>
+      );
     }
 
-    // user stories
-    // user sees a button to add a card
-
-    handleClick() {
-        console.log('handleClick')
-        this.setState({
-            editing: true
-        });
-    }
-
-    // when a user clicks DONE
-    // 1 - a new list is created and saved
-    handleSave(cardTitle) {
-
-        //dispatch an action to create a new Card
-        this.props.dispatch(createNewCard(this.props.listProps.board._id, this.props.listProps._id, cardTitle))
-
-        this.setState({
-            editing: false
-        })
-    }
-
-    cancelCreate() {
-        this.setState({
-            editing: false
-        })
-    }
-
-    render() {
-
-        let addForm;
-        let input;
-        if (this.state.editing) {
-            addForm = 
-            <h1>
-                <form onSubmit={e => {
-                    e.preventDefault()
-                    if (!input.value.trim()) {
-                    return
-                    }
-                    this.handleSave(input.value)
-                    input.value = '' 
-                    }}>
-                <input type="text" defaultValue="new card" ref={node => input = node} />
-                    <button type="submit">Done</button>
-                    <button type="button" onClick={(e) => this.cancelCreate()}>
-                        Cancel
-                    </button>
-                </form>
-            </h1>
-
-        } else {
-            addForm = 
-                <form onSubmit={e => {
-                    e.preventDefault()
-                    this.handleClick()
-                }}>
-                    <button type="submit">Add Card</button>
-                </form>
-            
-
-        }  
-
-        return addForm;
-    }
+    return <div className="add-card-form">{addForm}</div>;
+  }
 }
 
 const mapStateToProps = state => {
-    return({
-    })
-}
+  return {};
+};
 
-export default connect(mapStateToProps)(addCard)
+const mapDispatchToProps = dispatch => {
+  return {
+    createNewCard: (list_id, cardTitle) =>
+      dispatch(actions.createNewCard(list_id, cardTitle))
+  };
+};
 
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(addCard);

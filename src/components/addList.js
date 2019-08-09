@@ -1,92 +1,97 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from "react";
+import { connect } from "react-redux";
 
-import 'components/stylesheets/list.css'
-
-import { createNewList } from '../actions'
+import * as actions from "../actions";
 
 export class addList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editing: false
+    };
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            editing: false
-        }
+    //TODO: what does this line do?
+    // this.onSubmit = this.onSubmit.bind(this);
+  };
 
-        //TODO: what does this line do?
-        // this.onSubmit = this.onSubmit.bind(this);
-    }
+  handleClick(e) {
+    e.preventDefault();
+    this.setState({
+      editing: true
+    });
+  };
 
-    // user stories
-    // user sees a button to add a list
+  handleSubmit(e) {
+    e.preventDefault();
+    if (!this.listTitle.value.trim()) {
+      return;
+    };
+    this.handleSave(this.listTitle.value);
+    this.listTitle.value = "";
+  };
 
-    handleClick() {
-        this.setState({
-            editing: true
-        });
-    }
+  handleSave(listTitle) {
+    this.props.createNewList(this.props.board._id, listTitle);
+    this.setState({
+      editing: false
+    });
+  };
 
-    // when a user clicks DONE
-    // 1 - a new list is created and saved
-    handleSave(listTitle) {
-        console.log('handleSave', listTitle);
+  cancelCreate() {
+    this.setState({
+      editing: false
+    });
+  };
 
-        //dispatch an action to create a new List
-        this.props.dispatch(createNewList(this.props.board._id, listTitle))
+  render() {
+    let addForm = (
+      <form
+        onSubmit={e => {
+          this.handleClick(e);
+        }}
+      >
+        <button type="submit">Add List</button>
+      </form>
+    );
 
-        this.setState({
-            editing: false
-        })
-    }
+    if (this.state.editing) {
+      addForm = (
+        <h1>
+          <form
+            onSubmit={e => {
+              this.handleSubmit(e);
+            }}
+          >
+            <input
+              type="text"
+              defaultValue="new list"
+              ref={listTitle => (this.listTitle = listTitle)}
+            />
+            <button type="submit">Done</button>
+            <button type="button" onClick={e => this.cancelCreate()}>
+              Cancel
+            </button>
+          </form>
+        </h1>
+      );
+    };
 
-    cancelCreate() {
-        this.setState({
-            editing: false
-        })
-    }
-
-    render() {
-        let addForm;
-        let input;
-        if (this.state.editing) {
-            addForm = 
-            <h1>
-                <form onSubmit={e => {
-                    e.preventDefault()
-                    if (!input.value.trim()) {
-                    return
-                    }
-                    this.handleSave(input.value)
-                    input.value = '' 
-                    }}>
-                <input type="text" defaultValue="new list" ref={node => input = node} />
-                    <button type="submit">Done</button>
-                    <button type="button" onClick={(e) => this.cancelCreate()}>
-                        Cancel
-                    </button>
-                </form>
-            </h1>
-
-        } else {
-            addForm = 
-                <form onSubmit={e => {
-                    e.preventDefault()
-                    this.handleClick()
-                }}>
-                    <button type="submit">Add List</button>
-                </form>
-            
-
-        }  
-
-        return addForm;
-    }
+    return <div className="add-list-form">{addForm}</div>;
+  }
 }
 
 const mapStateToProps = state => {
-    return({
-    })
-}
+  return {};
+};
 
-export default connect(mapStateToProps)(addList)
+const mapDispatchToProps = dispatch => {
+  return {
+    createNewList: (board_id, newTitle) =>
+      dispatch(actions.createNewList(board_id, newTitle))
+  };
+};
 
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(addList);
