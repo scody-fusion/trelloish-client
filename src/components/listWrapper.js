@@ -3,10 +3,15 @@ import { connect } from "react-redux";
 
 import List from "../components/list";
 
-import "components/stylesheets/board.css";
 
 export class ListWrapper extends React.Component {
+
+  componentWillMount() {
+    //fetch Lists
+  }
+
   render() {
+    console.log(this.props);
     const lists = this.props.lists.map((list, index) => (
       <List {...list} key={index} />
     ));
@@ -17,7 +22,7 @@ export class ListWrapper extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    boards: state.board.board
+    lists: state.lists.lists
   };
 };
 

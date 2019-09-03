@@ -5,7 +5,7 @@ import update from 'immutability-helper';
 
 //set initial state
 const initialState = {
-    board: 
+    boards: [
         {
             _id: '1',
             title: 'board one',
@@ -14,6 +14,7 @@ const initialState = {
             lastModified: 'today',
             description: 'description'
         }
+    ]
     
 };
 
@@ -30,23 +31,19 @@ const findBoard = (boards, board_id, callback) => {
     })
 }
 
+const updateBoards = (state, action) => {
+    console.log(action);
+    const newState = update(state, { boards: { $set: action.boards } });
+    return newState;
+}
+
 
 // reducer handles actions from /actions/index.js
-export const boardReducer = (state = initialState, action) => {
-
-    let newState = {};
+export const boardsReducer = (state = initialState, action) => {
 
     switch (action.type) {
 
-        case actionTypes.UPDATE_BOARDS:
-
-            newState = {
-                ...state,
-                boards: action.boards
-            }
-
-            return newState;
-
+        case actionTypes.UPDATE_BOARDS: return updateBoards(state, action)
 
         default:
             return state

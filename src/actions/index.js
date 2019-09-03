@@ -10,7 +10,6 @@ export const updateBoards = (boards) => {
 };
 
 export const fetchBoards = () => (dispatch, getState) => {
-    console.log('hello from fetchboards action');
     return fetch(`${API_BASE_URL}/boards`, {
             method: 'GET'
         })
@@ -18,7 +17,7 @@ export const fetchBoards = () => (dispatch, getState) => {
             return res.json()
         })
         .then((boards) => {
-            // console.log('action boards',boards);
+            console.log('action boards',boards);
             dispatch(updateBoards(boards))
         })
 };
