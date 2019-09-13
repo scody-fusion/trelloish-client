@@ -30,7 +30,6 @@ export class List extends React.Component {
     });
 
     console.log("cards", cards);
-    console.log('list props', this.props)
 
     return (
       <div className="list">

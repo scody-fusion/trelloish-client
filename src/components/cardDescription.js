@@ -34,7 +34,7 @@ export class CardDescription extends React.Component {
         className="card-description"
         onClick={() => this.setCardDescriptionEditing()}
       >
-        {this.props.card.cardDescription}
+        {this.props.card.description}
       </p>
     );
 

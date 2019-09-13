@@ -27,7 +27,7 @@ export class CardTitle extends React.Component {
   render() {
     let title = (
       <h1 className="card-title" onClick={() => this.setEditingCardTitle()}>
-        {this.props.card.cardTitle}
+        {this.props.card.title}
       </h1>
     );
 
