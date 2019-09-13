@@ -8,6 +8,7 @@ import CardList from "components/cardList";
 import "components/stylesheets/list.css";
 
 export class List extends React.Component {
+  
   //when I click on the list title, i can edit it
   // it has a field to add another card
   // it lists all of the active cards
@@ -22,7 +23,7 @@ export class List extends React.Component {
       return card.list === this.props._id;
     });
 
-    console.log("cards", cards);
+    // console.log("cards", cards);
 
     return (
       <div className="list">

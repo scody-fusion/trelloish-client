@@ -15,6 +15,12 @@ const initialState = {
   ]
 };
 
+const updateLists = (state, action) => {
+  console.log(action);
+  const newState = update(state, { lists: { $set: action.lists } });
+  return newState;
+}
+
 // search through board for a list
 const findList = (lists, list_id, callback) => {
   return lists.map((list, index) => {
@@ -75,6 +81,7 @@ export const listsReducer = (state = initialState, action) => {
       return saveListTitleEdited(state, action);
     case actionTypes.CREATE_NEW_LIST:
       return createNewList(state, action);
+    case actionTypes.UPDATE_LISTS: return updateLists(state, action)
     default:
       return state;
   }

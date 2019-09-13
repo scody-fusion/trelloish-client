@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchBoards } from "../actions";
 import BoardList from 'components/boardList';
 
 export class LandingPage extends React.Component {

@@ -6,30 +6,30 @@ import update from 'immutability-helper';
 //set initial state
 const initialState = {
     boards: [
-        {
-            _id: '1',
-            title: 'board one',
-            createdDate: 'today',
-            createdBy: 'Sean',
-            lastModified: 'today',
-            description: 'description'
-        }
+        // {
+        //     _id: '1',
+        //     title: 'board one',
+        //     createdDate: 'today',
+        //     createdBy: 'Sean',
+        //     lastModified: 'today',
+        //     description: 'description'
+        // }
     ]
     
 };
 
 
 // search through boards for a specific board
-const findBoard = (boards, board_id, callback) => {
-    return boards.map((board, index) => {
-        // return untargeted boards
-        if (board_id !== board._id) {
-            return board
-        } else {
-            return callback(board)
-        }
-    })
-}
+// const findBoard = (boards, board_id, callback) => {
+//     return boards.map((board, index) => {
+//         // return untargeted boards
+//         if (board_id !== board._id) {
+//             return board
+//         } else {
+//             return callback(board)
+//         }
+//     })
+// }
 
 const updateBoards = (state, action) => {
     console.log(action);

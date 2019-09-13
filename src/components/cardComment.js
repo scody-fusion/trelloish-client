@@ -26,7 +26,6 @@ export class CardComment extends React.Component {
   };
 
   render() {
-    console.log('comment props', this.props)
     let comment = (
       <p className="comment-text" onClick={() => this.setCardCommentEditing()}>
         {this.props.commentText}

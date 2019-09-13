@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import * as actions from '../actions'
 
 import List from "../components/list";
 
@@ -7,16 +8,26 @@ import List from "../components/list";
 export class ListWrapper extends React.Component {
 
   componentWillMount() {
-    //fetch Lists
+    console.log('fetchLists in list');
+    this.props.fetchLists();
   }
 
   render() {
-    console.log(this.props);
-    const lists = this.props.lists.map((list, index) => (
+    console.log('listWrapper props', this.props);
+
+    //query for lists that match board
+    // FIXME: this is returning nothing because we need to fetch lists from the server
+    let filteredLists = this.props.lists.filter((list, index) => {
+      return list.board === this.props.boardId
+    });
+
+    // console.log('filteredLists', filteredLists);
+
+    const renderedLists = filteredLists.map((list, index) => (
       <List {...list} key={index} />
     ));
 
-    return <div className="list-wrapper">{lists}</div>;
+    return <div className="list-wrapper">{renderedLists}</div>;
   }
 }
 
@@ -26,4 +37,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(ListWrapper);
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchLists: () =>
+      dispatch(actions.fetchLists())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListWrapper);

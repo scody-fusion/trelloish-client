@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux';
 
 // actions
-import {fetchBoards} from '../actions';
 import BoardMenuButton from 'components/boardMenuButton';
 
 // components

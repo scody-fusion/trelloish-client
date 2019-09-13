@@ -17,8 +17,29 @@ export const fetchBoards = () => (dispatch, getState) => {
             return res.json()
         })
         .then((boards) => {
-            console.log('action boards',boards);
+            // console.log('action boards',boards);
             dispatch(updateBoards(boards))
+        })
+};
+
+export const UPDATE_LISTS = 'UPDATE_LISTS';
+export const updateLists = (lists) => {
+    return {
+        type: UPDATE_LISTS,
+        lists: lists
+    };
+};
+
+export const fetchLists = () => (dispatch, getState) => {
+    return fetch(`${API_BASE_URL}/lists`, {
+            method: 'GET'
+        })
+        .then(res => {
+            return res.json()
+        })
+        .then((lists) => {
+            console.log('action lists',lists);
+            dispatch(updateLists(lists))
         })
 };
 

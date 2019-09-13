@@ -11,22 +11,19 @@ import 'components/stylesheets/board.css';
 export class Board extends React.Component {
 
   componentWillMount() {
+    // console.log('fetchBoards in boards');
     this.props.dispatch(fetchBoards());
   }
 
-  //FIXME: pass correct props to board for rendering
   render() {
-    console.log('board props', this.props.board);
-    //query for lists that match board
-    let lists = this.props.lists.filter((list, index) => {
-        return list.board === this.props.board[0]._id
-    });
+    // console.log('board props', this.props.board);
+    
 
     // FIXME: is the lists prop below needed
     return (
       <div className="board">
         <BoardHeader boardTitle={this.props.board.title} />
-        <ListWrapper board={this.props.board._id} />
+        <ListWrapper boardId={this.props.board._id} />
         <AddList board={this.props.board} />
       </div>
     );
@@ -36,15 +33,18 @@ export class Board extends React.Component {
 const mapStateToProps = (state, props) => {
 
   //filter using matching board to return to props
+  console.log('props.match.params', props.match);
 
   const board = state.boards.boards.filter((board) => {
-    return board._id ===  props.match.params.board_id
+    // console.log(board._id, props.match.params.board_id);
+    // console.log(board._id === props.match.params.board_id);
+    return board._id === props.match.params.board_id
   })
 
-  console.log(board[0]);
+  // console.log(board);
 
     return({
-        board: board,
+        board: board[0],
         lists: state.lists.lists
     });
 };

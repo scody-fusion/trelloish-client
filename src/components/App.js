@@ -1,10 +1,10 @@
 import React from "react";
+// eslint-disable-next-line
 import { Route, withRouter } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import "./stylesheets/App.css";
 
-import BoardList from "./boardList";
 import Board from "components/board";
 import LandingPage from "./landing";
 
@@ -12,7 +12,7 @@ import * as actions from "../actions";
 
 export class App extends React.Component {
   componentWillMount() {
-    console.log('fetching boards from app');
+    // console.log('fetching boards from app');
     this.props.fetchBoards();
   }
 
