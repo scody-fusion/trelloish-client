@@ -16,7 +16,6 @@ const initialState = {
 };
 
 const updateLists = (state, action) => {
-  console.log(action);
   const newState = update(state, { lists: { $set: action.lists } });
   return newState;
 }

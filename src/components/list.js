@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import * as actions from '../actions';
 
 import AddCard from "components/addCard";
 import ListTitle from "components/listTitle";
@@ -8,6 +9,11 @@ import CardList from "components/cardList";
 import "components/stylesheets/list.css";
 
 export class List extends React.Component {
+
+  componentWillMount() {
+    console.log('fetchCards in Lists');
+    this.props.fetchCards();
+  }
   
   //when I click on the list title, i can edit it
   // it has a field to add another card
@@ -23,7 +29,8 @@ export class List extends React.Component {
       return card.list === this.props._id;
     });
 
-    // console.log("cards", cards);
+    console.log("cards", cards);
+    console.log('list props', this.props)
 
     return (
       <div className="list">
@@ -41,4 +48,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(List);
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchCards: () =>
+      dispatch(actions.fetchCards())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(List);

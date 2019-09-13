@@ -29,7 +29,7 @@ export class ListTitle extends React.Component {
   render() {
     let title = (
       <h1 className="list-title" onClick={() => this.setListTitleEditing()}>
-        {this.props.list.listTitle}
+        {this.props.list.title}
       </h1>
     );
 

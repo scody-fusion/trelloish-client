@@ -43,6 +43,27 @@ export const fetchLists = () => (dispatch, getState) => {
         })
 };
 
+export const UPDATE_CARDS = 'UPDATE_CARDS';
+export const updateCards = (cards) => {
+    return {
+        type: UPDATE_CARDS,
+        cards: cards
+    };
+};
+
+export const fetchCards = () => (dispatch, getState) => {
+    return fetch(`${API_BASE_URL}/cards`, {
+            method: 'GET'
+        })
+        .then(res => {
+            return res.json()
+        })
+        .then((cards) => {
+            console.log('action cards',cards);
+            dispatch(updateCards(cards))
+        })
+};
+
 // edit list title
 export const SET_LIST_TITLE_EDITING = 'SET_LIST_TITLE_EDITING';
 export const setListTitleEditing = (list_id) => {

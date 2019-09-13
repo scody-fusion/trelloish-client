@@ -16,7 +16,6 @@ export class ListWrapper extends React.Component {
     console.log('listWrapper props', this.props);
 
     //query for lists that match board
-    // FIXME: this is returning nothing because we need to fetch lists from the server
     let filteredLists = this.props.lists.filter((list, index) => {
       return list.board === this.props.boardId
     });

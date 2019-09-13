@@ -26,6 +26,11 @@ const initialState = {
   ]
 };
 
+const updateCards = (state, action) => {
+  const newState = update(state, { cards: { $set: action.cards } });
+  return newState;
+}
+
 // search through a list for a specific card
 const findCard = (cards, card_id, callback) => {
   return cards.map((card, index) => {
@@ -120,6 +125,7 @@ export const cardsReducer = (state = initialState, action) => {
       return setCardDescriptionEditing(state, action);
     case actionTypes.SAVE_EDITED_CARD_DESCRIPTION:
       return saveCardDescriptionEdited(state, action);
+    case actionTypes.UPDATE_CARDS: return updateCards(state, action)
     default:
       return state;
   }
