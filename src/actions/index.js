@@ -72,7 +72,6 @@ export const setListTitleEditing = (list_id) => {
 
 // save list title
 export const saveListTitleToCollection = (list_id, editedTitle) => (dispatch) => {
-
     const data = {
         _id: list_id,
         title: editedTitle
@@ -88,15 +87,22 @@ export const saveListTitleToCollection = (list_id, editedTitle) => (dispatch) =>
     .then(() => dispatch(fetchLists()))
 }
 
-// create a new list
-export const CREATE_NEW_LIST = 'CREATE_NEW_LIST';
-export const createNewList = (board_id, listTitle) => {
-    return {
-        type: CREATE_NEW_LIST,
-        board_id: board_id,
-        listTitle: listTitle
+export const createNewList = (board_id, listTitle) => (dispatch) => {
+    const data = {
+        board: board_id,
+        title: listTitle,
+        createdBy: 'user'
     };
-};
+    console.log(data);
+    return fetch(`${API_BASE_URL}/lists`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(() => dispatch(fetchLists()))
+}
 
 // create a new card
 export const CREATE_NEW_CARD = 'CREATE_NEW_CARD';

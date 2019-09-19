@@ -64,8 +64,6 @@ export const listsReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_LIST_TITLE_EDITING:
       return setListTitleEditing(state, action);
-    case actionTypes.CREATE_NEW_LIST:
-      return createNewList(state, action);
     case actionTypes.UPDATE_LISTS: return updateLists(state, action)
     default:
       return state;
