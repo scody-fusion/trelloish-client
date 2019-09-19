@@ -43,18 +43,6 @@ const setListTitleEditing = (state, action) => {
   return newState;
 };
 
-const saveListTitleEdited = (state, action) => {
-  //map through state to find and update correct list
-  let updatedLists = findList(state.lists, action.list_id, list => {
-    // save updatedTitle
-    return update(list, { listTitle: { $set: action.editedTitle } });
-  });
-
-  // update lists in state
-  const newState = update(state, { lists: { $set: updatedLists } });
-  return newState;
-};
-
 const createNewList = (state, action) => {
   let newList = {
     _id: "2",
@@ -76,8 +64,6 @@ export const listsReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_LIST_TITLE_EDITING:
       return setListTitleEditing(state, action);
-    case actionTypes.SAVE_LIST_TITLE_EDITED:
-      return saveListTitleEdited(state, action);
     case actionTypes.CREATE_NEW_LIST:
       return createNewList(state, action);
     case actionTypes.UPDATE_LISTS: return updateLists(state, action)

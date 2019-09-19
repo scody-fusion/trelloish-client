@@ -21,7 +21,6 @@ export class ListTitle extends React.Component {
   }
 
   saveListTitleEdited(newTitle) {
-    // this.props.saveListTitleEdited(this.props.list._id, newTitle);
     this.props.saveListTitleToCollection(this.props.list._id, newTitle);
     // reset titleEditing to false
     this.setListTitleEditing();
@@ -65,8 +64,6 @@ const mapDispatchToProps = dispatch => {
   return {
     setListTitleEditing: list_id =>
       dispatch(actions.setListTitleEditing(list_id)),
-    saveListTitleEdited: (list_id, newTitle) =>
-      dispatch(actions.saveListTitleEdited(list_id, newTitle)),
     saveListTitleToCollection: (list_id, newTitle) =>
       dispatch(actions.saveListTitleToCollection(list_id, newTitle))
   };

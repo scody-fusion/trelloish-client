@@ -71,15 +71,6 @@ export const setListTitleEditing = (list_id) => {
 };
 
 // save list title
-export const SAVE_LIST_TITLE_EDITED = 'SAVE_LIST_TITLE_EDITED';
-export const saveListTitleEdited = (list_id, editedTitle) => {
-    return {
-        type: SAVE_LIST_TITLE_EDITED,
-        list_id: list_id,
-        editedTitle: editedTitle
-    };
-};
-
 export const saveListTitleToCollection = (list_id, editedTitle) => (dispatch) => {
 
     const data = {
