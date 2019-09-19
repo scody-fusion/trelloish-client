@@ -31,7 +31,7 @@ export const updateLists = (lists) => {
 
 export const fetchLists = () => (dispatch, getState) => {
     return fetch(`${API_BASE_URL}/lists`, {
-            method: 'GET'
+            method: 'GET',
         })
         .then(res => {
             return res.json()
@@ -79,6 +79,23 @@ export const saveListTitleEdited = (list_id, editedTitle) => {
         editedTitle: editedTitle
     };
 };
+
+export const saveListTitleToCollection = (list_id, editedTitle) => (dispatch) => {
+
+    const data = {
+        _id: list_id,
+        title: editedTitle
+    };
+    console.log(data);
+    return fetch(`${API_BASE_URL}/lists`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(() => dispatch(fetchLists()))
+}
 
 // create a new list
 export const CREATE_NEW_LIST = 'CREATE_NEW_LIST';
