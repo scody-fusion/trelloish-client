@@ -17,7 +17,6 @@ export const fetchBoards = () => (dispatch, getState) => {
             return res.json()
         })
         .then((boards) => {
-            // console.log('action boards',boards);
             dispatch(updateBoards(boards))
         })
 };
@@ -38,7 +37,6 @@ export const fetchLists = () => (dispatch, getState) => {
             return res.json()
         })
         .then((lists) => {
-            console.log('action lists',lists);
             dispatch(updateLists(lists))
         })
 };
@@ -59,7 +57,6 @@ export const fetchCards = () => (dispatch, getState) => {
             return res.json()
         })
         .then((cards) => {
-            console.log('action cards',cards);
             dispatch(updateCards(cards))
         })
 };

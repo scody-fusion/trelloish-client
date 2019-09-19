@@ -11,7 +11,6 @@ import "components/stylesheets/list.css";
 export class List extends React.Component {
 
   componentWillMount() {
-    console.log('fetchCards in Lists');
     this.props.fetchCards();
   }
   
@@ -29,7 +28,6 @@ export class List extends React.Component {
       return card.list === this.props._id;
     });
 
-    console.log("cards", cards);
 
     return (
       <div className="list">

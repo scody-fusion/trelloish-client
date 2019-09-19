@@ -8,19 +8,15 @@ import List from "../components/list";
 export class ListWrapper extends React.Component {
 
   componentWillMount() {
-    console.log('fetchLists in list');
     this.props.fetchLists();
   }
 
   render() {
-    console.log('listWrapper props', this.props);
 
     //query for lists that match board
     let filteredLists = this.props.lists.filter((list, index) => {
       return list.board === this.props.boardId
     });
-
-    // console.log('filteredLists', filteredLists);
 
     const renderedLists = filteredLists.map((list, index) => (
       <List {...list} key={index} />

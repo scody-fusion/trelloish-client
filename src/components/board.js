@@ -11,40 +11,34 @@ import 'components/stylesheets/board.css';
 export class Board extends React.Component {
 
   componentWillMount() {
-    // console.log('fetchBoards in boards');
     this.props.dispatch(fetchBoards());
   }
 
   render() {
-    // console.log('board props', this.props.board);
     
+  //filter using matching board to return to props
+  //FIXME: is there a cleaner refactor for this?
+  const boardFilter = this.props.boards.filter((board) => {
+    console.log('board._id:', board._id);
+    return board._id === this.props.match.params.board_id
+  })
 
-    // FIXME: is the lists prop below needed
+  const board = boardFilter.length > 0 ? boardFilter[0] : {};
+
     return (
       <div className="board">
-        <BoardHeader boardTitle={this.props.board.title} />
-        <ListWrapper boardId={this.props.board._id} />
-        <AddList board={this.props.board} />
+        <BoardHeader boardTitle={board.title} />
+        <ListWrapper boardId={board._id} />
+        <AddList board={board} />
       </div>
     );
   };
 };
 
-const mapStateToProps = (state, props) => {
-
-  //filter using matching board to return to props
-  console.log('props.match.params', props.match);
-
-  const board = state.boards.boards.filter((board) => {
-    // console.log(board._id, props.match.params.board_id);
-    // console.log(board._id === props.match.params.board_id);
-    return board._id === props.match.params.board_id
-  })
-
-  // console.log(board);
+const mapStateToProps = (state) => {
 
     return({
-        board: board[0],
+        boards: state.boards.boards,
         lists: state.lists.lists
     });
 };

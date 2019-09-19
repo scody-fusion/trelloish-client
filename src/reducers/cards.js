@@ -112,7 +112,7 @@ const saveCardDescriptionEdited = (state, action) => {
 
 // reducer handles actions from /actions/index.js
 export const cardsReducer = (state = initialState, action) => {
-  console.log("action", action);
+  // console.log("action", action);
 
   switch (action.type) {
     case actionTypes.CREATE_NEW_CARD:
