@@ -105,14 +105,22 @@ export const createNewList = (board_id, listTitle) => (dispatch) => {
 }
 
 // create a new card
-export const CREATE_NEW_CARD = 'CREATE_NEW_CARD';
-export const createNewCard = (list_id, cardTitle) => {
-    return {
-        type: CREATE_NEW_CARD,
-        list_id: list_id,
-        cardTitle: cardTitle
+export const createNewCard = (list_id, cardTitle) => (dispatch) => {
+    const data = {
+        list: list_id,
+        title: cardTitle,
+        createdBy: 'user'
     };
-};
+    console.log(data);
+    return fetch(`${API_BASE_URL}/cards`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(() => dispatch(fetchCards()))
+}
 
 
 // edit a card title
