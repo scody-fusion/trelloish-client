@@ -117,8 +117,8 @@ export const cardsReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_CARD_TITLE_EDITING:
       return setCardTitleEditing(state, action);
-    case actionTypes.SAVE_EDITED_CARD_TITLE:
-      return saveCardTitleEdited(state, action);
+    // case actionTypes.SAVE_EDITED_CARD_TITLE:
+    //   return saveCardTitleEdited(state, action);
     case actionTypes.SET_CARD_DESCRIPTION_EDITING:
       return setCardDescriptionEditing(state, action);
     case actionTypes.SAVE_EDITED_CARD_DESCRIPTION:

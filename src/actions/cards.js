@@ -49,14 +49,31 @@ export const setEditingCardTitle = (card_id) => {
 };
 
 // save card title
-export const SAVE_EDITED_CARD_TITLE = 'SAVE_EDITED_CARD_TITLE';
-export const saveEditedCardTitle = (card_id, editedTitle) => {
-    return {
-        type: SAVE_EDITED_CARD_TITLE,
-        card_id: card_id,
-        editedTitle: editedTitle
+// export const SAVE_EDITED_CARD_TITLE = 'SAVE_EDITED_CARD_TITLE';
+// export const saveEditedCardTitle = (card_id, editedTitle) => {
+//     return {
+//         type: SAVE_EDITED_CARD_TITLE,
+//         card_id: card_id,
+//         editedTitle: editedTitle
+//     };
+// };
+
+// save list title
+export const saveEditedCardTitle = (card_id, editedTitle) => (dispatch) => {
+    const data = {
+        _id: card_id,
+        title: editedTitle
     };
-};
+    console.log(data);
+    return fetch(`${API_BASE_URL}/cards`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(() => dispatch(fetchCards()))
+}
 
 // edit a card description
 export const SET_CARD_DESCRIPTION_EDITING = 'SET_CARD_DESCRIPTION_EDITING';
