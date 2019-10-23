@@ -6,12 +6,7 @@ import update from "immutability-helper";
 //set initial state
 const initialState = {
   lists: [
-    {
-      _id: "11",
-      listTitle: "List One",
-      titleEditing: false,
-      board: "1"
-    }
+    // {
   ]
 };
 
@@ -59,7 +54,7 @@ const createNewList = (state, action) => {
 };
 
 // reducer handles actions from /actions/index.js
-export const listsReducer = (state = initialState, action) => {
+export const listsReducer = (state = [], action) => {
 
   switch (action.type) {
     case actionTypes.SET_LIST_TITLE_EDITING:

@@ -39,7 +39,7 @@ const updateBoards = (state, action) => {
 
 
 // reducer handles actions from /actions/index.js
-export const boardsReducer = (state = initialState, action) => {
+export const boardsReducer = (state = [], action) => {
 
     switch (action.type) {
 

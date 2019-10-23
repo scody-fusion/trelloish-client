@@ -15,6 +15,7 @@ export class Board extends React.Component {
   }
 
   render() {
+    console.log('board render // props:', this.props);
     
   //filter using matching board to return to props
   //FIXME: is there a cleaner refactor for this?
@@ -37,10 +38,10 @@ export class Board extends React.Component {
 
 const mapStateToProps = (state) => {
 
-    return({
+    return{
         boards: state.boards.boards,
         lists: state.lists.lists
-    });
+    };
 };
 
 export default connect(mapStateToProps)(Board);

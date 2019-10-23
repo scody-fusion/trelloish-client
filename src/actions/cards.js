@@ -8,7 +8,16 @@ export const updateCards = (cards) => {
     };
 };
 
-export const fetchCards = () => (dispatch, getState) => {
+export const FETCH_CARD_REQUEST = 'FETCH_CARD_REQUEST';
+export const fetchCardRequest = () => {
+    return {
+        type: FETCH_CARD_REQUEST
+    }
+}
+
+export const fetchCards = () => dispatch => {
+    // set state indicating request in progress
+    // dispatch(fetchCardRequest());
     return fetch(`${API_BASE_URL}/cards`, {
             method: 'GET'
         })
@@ -16,7 +25,13 @@ export const fetchCards = () => (dispatch, getState) => {
             return res.json()
         })
         .then((cards) => {
+            //rename to fetchCardsSuccess()???
             dispatch(updateCards(cards))
+        })
+        .catch(err => {
+            //TODO: write this error 
+            //FUTURE: error modal
+            // dispatch(fetchCardsError(err));
         })
 };
 
@@ -27,7 +42,6 @@ export const createNewCard = (list_id, cardTitle) => (dispatch) => {
         title: cardTitle,
         createdBy: 'user'
     };
-    console.log(data);
     return fetch(`${API_BASE_URL}/cards`, {
         method: 'POST',
         headers: {
@@ -49,22 +63,11 @@ export const setEditingCardTitle = (card_id) => {
 };
 
 // save card title
-// export const SAVE_EDITED_CARD_TITLE = 'SAVE_EDITED_CARD_TITLE';
-// export const saveEditedCardTitle = (card_id, editedTitle) => {
-//     return {
-//         type: SAVE_EDITED_CARD_TITLE,
-//         card_id: card_id,
-//         editedTitle: editedTitle
-//     };
-// };
-
-// save list title
 export const saveEditedCardTitle = (card_id, editedTitle) => (dispatch) => {
     const data = {
         _id: card_id,
         title: editedTitle
     };
-    console.log(data);
     return fetch(`${API_BASE_URL}/cards`, {
         method: 'PUT',
         headers: {
@@ -85,14 +88,20 @@ export const setCardDescriptionEditing = (card_id) => {
 };
 
 // save card description
-export const SAVE_EDITED_CARD_DESCRIPTION = 'SAVE_EDITED_CARD_DESCRIPTION';
-export const saveEditedCardDescription = (card_id, editedDescription) => {
-    return {
-        type: SAVE_EDITED_CARD_DESCRIPTION,
-        card_id: card_id,
-        editedDescription: editedDescription
+export const saveEditedCardDescription = (card_id, editedDescription) => (dispatch) => {
+    const data = {
+        _id: card_id,
+        description: editedDescription
     };
-};
+    return fetch(`${API_BASE_URL}/cards`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(() => dispatch(fetchCards()))
+}
 
 // edit a card comment
 export const SET_CARD_COMMENT_EDITING = 'SET_CARD_COMMENT_EDITING';
